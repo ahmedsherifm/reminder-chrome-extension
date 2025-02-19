@@ -18,11 +18,12 @@ label {
 }
 
 input, button {
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    display: block;
 }
 
 input[type="checkbox"] {
@@ -42,9 +43,61 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Fix spacing for checkboxes */
-.checkbox-container {
+.input-group {
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    justify-content: space-between;
+}
+
+.message-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+.delete-reminder-btn {
+    margin-left: 10px;
+    padding: 5px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.delete-reminder-btn:hover {
+    background: darkred;
+}
+
+#reminderList {
+    padding: 0;
+    list-style-type: none;
+}
+
+#reminderList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }

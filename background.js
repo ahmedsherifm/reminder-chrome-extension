@@ -15,7 +15,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             const notificationOptions = {
                 type: "basic",
-                iconUrl: "icon.png",
+                iconUrl: "icon-128.png",
                 title: reminder.title || "Reminder",
                 message: message,
                 requireInteraction: false
@@ -30,9 +30,14 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             const audio = new Audio(chrome.runtime.getURL(soundFile));
             audio.play();
 
+            // ✅ Restore History Logging
             chrome.storage.local.get(["history"], (historyData) => {
                 const history = historyData.history || [];
-                history.push({ title: reminder.title, message, time: new Date().toLocaleString() });
+                history.push({ 
+                    title: reminder.title, 
+                    message, 
+                    time: new Date().toLocaleString() 
+                });
                 chrome.storage.local.set({ history });
             });
 
