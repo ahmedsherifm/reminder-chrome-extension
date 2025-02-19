@@ -3,7 +3,7 @@
   "name": "Smart Reminder Extension",
   "version": "1.0",
   "description": "Set reminders with custom messages, titles, and sounds.",
-  "permissions": ["notifications", "storage", "alarms", "tabs"],
+  "permissions": ["notifications", "storage", "alarms", "tabs", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {
     "service_worker": "background.js"
@@ -15,12 +15,6 @@
     }
   ],
   "action": {
-    "default_icon": {
-      "16": "icons/icon16.png",
-      "32": "icons/icon32.png",
-      "48": "icons/icon48.png",
-      "128": "icons/icon128.png"
-    },
     "default_popup": "popup.html"
   },
   "icons": {

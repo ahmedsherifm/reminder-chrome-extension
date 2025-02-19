@@ -28,10 +28,17 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             // ✅ Show Notification
             chrome.notifications.create(reminderId, notificationOptions);
 
-            // ✅ Send a message to content.js to play sound
+            // ✅ Ensure content script is loaded in an active tab before sending message
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
                 if (tabs.length > 0) {
-                    chrome.tabs.sendMessage(tabs[0].id, { action: "playSound", soundFile });
+                    chrome.scripting.executeScript({
+                        target: { tabId: tabs[0].id },
+                        files: ["content.js"]
+                    }).then(() => {
+                        chrome.tabs.sendMessage(tabs[0].id, { action: "playSound", soundFile });
+                    }).catch(err => console.error("Error injecting content script:", err));
+                } else {
+                    console.warn("No active tab found. Cannot play sound.");
                 }
             });
 
