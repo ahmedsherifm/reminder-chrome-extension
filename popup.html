@@ -11,13 +11,17 @@
     <label>Reminder Title:</label>
     <input type="text" id="reminderTitle" placeholder="Enter title">
 
+    <label>Reminder Message(s):</label>
     <div id="messageContainer">
         <input type="text" class="messageInput" placeholder="Enter message">
     </div>
-    <label>
-        <input type="checkbox" id="multipleMessages"> Use Multiple Messages?
-    </label>
-    <button id="addMessage" style="display: none;">Add Another Message</button>
+
+    <div class="checkbox-container">
+        <input type="checkbox" id="multipleMessages">
+        <label for="multipleMessages">Use Multiple Messages?</label>
+    </div>
+    
+    <button id="addMessage" style="display: none;">+ Add Another Message</button>
 
     <label>Reminder Time (minutes):</label>
     <input type="number" id="reminderTime" min="1" placeholder="Minutes">
@@ -25,9 +29,10 @@
     <label>Reminder Sound (MP3 URL):</label>
     <input type="text" id="reminderSound" placeholder="Enter MP3 URL">
 
-    <label>
-        <input type="checkbox" id="periodicReminder"> Make this a periodic reminder
-    </label>
+    <div class="checkbox-container">
+        <input type="checkbox" id="periodicReminder">
+        <label for="periodicReminder">Make this a periodic reminder</label>
+    </div>
 
     <button id="setReminder">Set Reminder</button>
 
