@@ -79,7 +79,8 @@ If you make changes to the code, reload it:
 
 This software is **proprietary and confidential**.\
 Unauthorized copying, modification, or distribution is **strictly prohibited**.\
-For **licensing inquiries**, please contact: **[**asherifhegazy@gmail.com**](mailto\:your_email@example.com)**.
+Reminder Chrome Extension © 2025 by Ahmed Sherif is licensed under CC BY-NC-ND 4.0 .\
+For **licensing inquiries**, please contact: **[**asherifhegazy@gmail.com**](mailto\:asherifhegazy@gmail.com)**.
 
 ## 🏗️ Contributing
 
