@@ -2,7 +2,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name.startsWith("reminder_")) {
         const reminderId = alarm.name.split("_")[1];
 
-        chrome.storage.sync.get(["reminders", "soundFile"], (data) => {
+        chrome.storage.sync.get(["reminders"], (data) => {
             const reminders = data.reminders || [];
             const reminder = reminders.find(r => r.id === reminderId);
             if (!reminder) return;
@@ -11,12 +11,12 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                 ? reminder.messages[Math.floor(Math.random() * reminder.messages.length)]
                 : reminder.messages[0];
 
-            const soundFile = data.soundFile || "reminder.mp3";
+            const soundFile = reminder.soundFile || "reminder.mp3";
 
             const notificationOptions = {
                 type: "basic",
                 iconUrl: "icon.png",
-                title: "Reminder",
+                title: reminder.title || "Reminder",
                 message: message,
                 requireInteraction: false
             };
@@ -32,7 +32,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             chrome.storage.local.get(["history"], (historyData) => {
                 const history = historyData.history || [];
-                history.push({ message, time: new Date().toLocaleString() });
+                history.push({ title: reminder.title, message, time: new Date().toLocaleString() });
                 chrome.storage.local.set({ history });
             });
 
