@@ -2,7 +2,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
     if (alarm.name.startsWith("reminder_")) {
         const reminderId = alarm.name.split("_")[1];
 
-        chrome.storage.sync.get(["reminders"], async (data) => {
+        chrome.storage.sync.get(["reminders"], (data) => {
             const reminders = data.reminders || [];
             const reminder = reminders.find(r => r.id === reminderId);
             if (!reminder) return;
@@ -18,27 +18,24 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                 iconUrl: "icons/icon128.png",
                 title: reminder.title || "Reminder",
                 message: message,
-                requireInteraction: false
+                requireInteraction: true // Keep the notification visible
             };
 
             if (!reminder.periodic) {
                 notificationOptions.buttons = [{ title: "Snooze (5 min)" }];
             }
-
+            
+            // ✅ Show Notification
             chrome.notifications.create(reminderId, notificationOptions);
 
-            // ✅ Play the reminder sound properly
-            try {
-                const response = await fetch(soundFile);
-                const audioBlob = await response.blob();
-                const audioUrl = URL.createObjectURL(audioBlob);
-                const audio = new Audio(audioUrl);
-                audio.play();
-            } catch (error) {
-                console.error("Failed to play sound:", error);
-            }
+            // ✅ Send a message to content.js to play sound
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+                if (tabs.length > 0) {
+                    chrome.tabs.sendMessage(tabs[0].id, { action: "playSound", soundFile });
+                }
+            });
 
-            // ✅ Store history
+            // ✅ Store reminder history
             chrome.storage.local.get(["history"], (historyData) => {
                 const history = historyData.history || [];
                 history.push({ 
