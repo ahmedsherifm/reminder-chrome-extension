@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     padding: 15px;
@@ -11,13 +12,14 @@ h3 {
     margin-bottom: 10px;
 }
 
+/* Input and Button Styles */
 label {
     font-weight: bold;
     display: block;
     margin-top: 10px;
 }
 
-input, button {
+input, button, select {
     width: calc(100% - 20px);
     padding: 10px;
     margin-top: 5px;
@@ -26,21 +28,34 @@ input, button {
     display: block;
 }
 
-input[type="checkbox"] {
-    display: none;
+button {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.toggle-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+/* Full-Width Buttons */
+.full-width-btn {
+    width: 100%;
+    display: block;
     margin-top: 10px;
 }
 
-.toggle-label {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 .toggle-switch {
@@ -88,38 +103,9 @@ input:checked + .slider:before {
     transform: translateX(18px);
 }
 
-#reminderList {
-    padding: 0;
-    list-style-type: none;
-}
-
-#reminderList li {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #fff;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.delete-reminder-btn {
-    margin-left: 10px;
-    padding: 5px;
-    background: red;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.delete-reminder-btn:hover {
-    background: darkred;
+/* Message Input Fields */
+#messageContainer {
+    margin-top: 10px;
 }
 
 .message-wrapper {
@@ -133,6 +119,7 @@ input:checked + .slider:before {
     flex-grow: 1;
 }
 
+/* Delete Button in Messages */
 .delete-btn {
     background-color: transparent;
     border: none;
@@ -152,17 +139,52 @@ input:checked + .slider:before {
     color: darkred;
 }
 
-button:hover {
-    background-color: #0056b3;
-    transition: background-color 0.3s ease;
+/* Reminder List */
+#reminderList {
+    padding: 0;
+    list-style-type: none;
 }
 
-button:active {
-    transform: scale(0.98);
+#reminderList li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.full-width-btn {
-    width: 100%;
-    display: block;
+/* Delete Button in Reminder List */
+.delete-reminder-btn {
+    margin-left: 10px;
+    padding: 5px;
+    background: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-reminder-btn:hover {
+    background: darkred;
+}
+
+/* History List */
+#historyList {
+    padding: 0;
+    list-style-type: none;
     margin-top: 10px;
+}
+
+#historyList li {
+    background: #eee;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 5px;
 }

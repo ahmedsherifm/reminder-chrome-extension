@@ -1,4 +1,9 @@
 document.getElementById("multipleMessages").addEventListener("change", updateMessageUI);
+document.getElementById("addMessage").addEventListener("click", () => addMessageField(true));
+
+document.getElementById("periodicReminder").addEventListener("change", () => {
+    console.log("Periodic reminder toggled", document.getElementById("periodicReminder").checked);
+});
 
 function updateMessageUI() {
     const multiple = document.getElementById("multipleMessages").checked;
@@ -13,10 +18,6 @@ function updateMessageUI() {
         document.getElementById("addMessage").style.display = "none";
     }
 }
-
-document.getElementById("addMessage").addEventListener("click", () => {
-    addMessageField(true);
-});
 
 function addMessageField(canDelete) {
     const container = document.getElementById("messageContainer");
@@ -44,6 +45,7 @@ document.getElementById("setReminder").addEventListener("click", () => {
     const title = document.getElementById("reminderTitle").value.trim();
     const messages = [...document.querySelectorAll(".messageInput")].map(input => input.value.trim()).filter(m => m.length > 0);
     const time = parseInt(document.getElementById("reminderTime").value, 10) || 1;
+    const periodic = document.getElementById("periodicReminder").checked;
 
     let soundFile = "";
     const soundSelect = document.getElementById("soundSelect").value;
@@ -64,10 +66,13 @@ document.getElementById("setReminder").addEventListener("click", () => {
     const reminderId = Date.now().toString();
     chrome.storage.sync.get(["reminders"], (data) => {
         const reminders = data.reminders || [];
-        reminders.push({ id: reminderId, title, messages, time, soundFile });
+        reminders.push({ id: reminderId, title, messages, time, soundFile, periodic });
 
         chrome.storage.sync.set({ reminders }, () => {
-            chrome.alarms.create(`reminder_${reminderId}`, { delayInMinutes: time });
+            chrome.alarms.create(`reminder_${reminderId}`, {
+                delayInMinutes: time,
+                periodInMinutes: periodic ? time : undefined
+            });
             displayReminders();
         });
     });
