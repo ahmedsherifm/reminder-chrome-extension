@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Reminder Extension</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="popup.js" defer></script>
+</head>
+<body>
+    <h3>Set a Reminder</h3>
+    <div id="messageContainer">
+        <input type="text" class="messageInput" placeholder="Enter message">
+    </div>
+    <label>
+        <input type="checkbox" id="multipleMessages"> Use Multiple Messages?
+    </label>
+    <button id="addMessage" style="display: none;">Add Another Message</button>
+
+    <label>Reminder Time (minutes):</label>
+    <input type="number" id="reminderTime" min="1" placeholder="Minutes">
+
+    <label>
+        <input type="checkbox" id="periodicReminder"> Make this a periodic reminder
+    </label>
+
+    <button id="setReminder">Set Reminder</button>
+
+    <h3>Active Reminders</h3>
+    <ul id="reminderList"></ul>
+
+    <h3>Reminder History</h3>
+    <ul id="historyList"></ul>
+</body>
+</html>
