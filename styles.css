@@ -1,8 +1,8 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
+    width: 360px;
     padding: 15px;
-    width: 350px;
     background-color: #f9f9f9;
     border-radius: 10px;
 }
@@ -20,39 +20,56 @@ label {
     margin-top: 10px;
 }
 
-/* Inputs, Selects, and Buttons */
-input, button, select {
-    width: calc(100% - 20px);
+/* Inputs and Select Boxes */
+input, select {
+    width: 100%;
     padding: 10px;
     margin-top: 5px;
     border-radius: 5px;
     border: 1px solid #ccc;
-    display: block;
+    box-sizing: border-box;
 }
 
+/* Buttons */
 button {
-    background-color: #007bff;
-    color: white;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3;
+    opacity: 0.9;
 }
 
 button:active {
     transform: scale(0.98);
 }
 
-/* Full-width Buttons */
+/* Primary Button */
 .full-width-btn {
-    width: 100%;
-    display: block;
-    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
 }
 
-/* Toggle Switch Styles */
+/* Delete Button */
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    width: auto;
+    display: inline-block;
+}
+
+/* Toggle Switch */
 .toggle-container {
     display: flex;
     align-items: center;
@@ -128,7 +145,7 @@ input:checked + .slider:before {
 }
 
 /* Delete Button for Messages */
-.delete-btn {
+/* .delete-btn {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -145,39 +162,35 @@ input:checked + .slider:before {
 .delete-btn:hover {
     background-color: rgba(255, 0, 0, 0.2);
     color: darkred;
-}
+} */
 
 /* Reminder List */
 #reminderList {
     padding: 0;
     list-style-type: none;
+    margin-top: 10px;
 }
 
 #reminderList li {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: white;
     padding: 8px;
-    margin-top: 5px;
     border-radius: 5px;
+    margin-top: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Delete Button in Reminder List */
+/* Small Delete Button for Active Reminders */
 .delete-reminder-btn {
-    margin-left: 10px;
     padding: 5px;
     background: red;
     color: white;
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 30px;
+    font-size: 12px;
 }
 
 .delete-reminder-btn:hover {
@@ -198,7 +211,7 @@ input:checked + .slider:before {
     margin-top: 5px;
 }
 
-/* Sound Selection Styles */
+/* Sound Selection Inputs */
 #uploadSound, #soundUrl, #existingSound {
     display: none;
 }

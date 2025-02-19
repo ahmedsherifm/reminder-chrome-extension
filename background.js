@@ -27,9 +27,6 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             chrome.notifications.create(reminderId, notificationOptions);
 
-            const audio = new Audio(chrome.runtime.getURL(soundFile));
-            audio.play();
-
             // ✅ Ensure reminder history is recorded
             chrome.storage.local.get(["history"], (historyData) => {
                 const history = historyData.history || [];
@@ -41,9 +38,24 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                 chrome.storage.local.set({ history });
             });
 
+            // Fix Audio Not Defined Error - Play Audio Correctly in Service Worker
+            chrome.runtime.getPackageDirectoryEntry((dir) => {
+                dir.getFile(soundFile, {}, (fileEntry) => {
+                    fileEntry.file((file) => {
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            const audio = new Audio(reader.result);
+                            audio.play();
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
+            });
+
             if (!reminder.periodic) {
                 chrome.storage.sync.set({ reminders: reminders.filter(r => r.id !== reminderId) });
             }
+
         });
     }
 });

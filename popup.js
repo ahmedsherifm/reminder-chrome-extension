@@ -12,9 +12,14 @@ function updateMessageUI() {
     const messageContainer = document.getElementById("messageContainer");
     messageContainer.innerHTML = "";
 
-    addMessageField(multiple);
+    addMessageField(false); // Always add one field initially
 
-    document.getElementById("addMessage").style.display = multiple ? "block" : "none";
+    if (multiple) {
+        addMessageField(true);
+        document.getElementById("addMessage").style.display = "block";
+    } else {
+        document.getElementById("addMessage").style.display = "none";
+    }
 }
 
 function addMessageField(canDelete) {
@@ -31,9 +36,13 @@ function addMessageField(canDelete) {
 
     if (canDelete) {
         const deleteBtn = document.createElement("button");
-        deleteBtn.innerHTML = "❌";
+        deleteBtn.textContent = "Delete";
         deleteBtn.className = "delete-btn";
-        deleteBtn.onclick = () => wrapper.remove();
+        deleteBtn.onclick = () => {
+            if (document.querySelectorAll(".message-wrapper").length > 1) {
+                wrapper.remove();
+            }
+        };
         wrapper.appendChild(deleteBtn);
     }
 
