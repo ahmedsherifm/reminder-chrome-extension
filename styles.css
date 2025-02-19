@@ -2,23 +2,25 @@
 body {
     font-family: Arial, sans-serif;
     padding: 15px;
-    width: 320px;
+    width: 350px;
     background-color: #f9f9f9;
     border-radius: 10px;
 }
 
+/* Headings */
 h3 {
     color: #333;
     margin-bottom: 10px;
 }
 
-/* Input and Button Styles */
+/* Labels */
 label {
     font-weight: bold;
     display: block;
     margin-top: 10px;
 }
 
+/* Inputs, Selects, and Buttons */
 input, button, select {
     width: calc(100% - 20px);
     padding: 10px;
@@ -43,19 +45,25 @@ button:active {
     transform: scale(0.98);
 }
 
-/* Full-Width Buttons */
+/* Full-width Buttons */
 .full-width-btn {
     width: 100%;
     display: block;
     margin-top: 10px;
 }
 
-/* Toggle Switch */
+/* Toggle Switch Styles */
 .toggle-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.toggle-label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
 }
 
 .toggle-switch {
@@ -119,7 +127,7 @@ input:checked + .slider:before {
     flex-grow: 1;
 }
 
-/* Delete Button in Messages */
+/* Delete Button for Messages */
 .delete-btn {
     background-color: transparent;
     border: none;
@@ -169,6 +177,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 30px;
 }
 
 .delete-reminder-btn:hover {
@@ -187,4 +196,9 @@ input:checked + .slider:before {
     padding: 8px;
     border-radius: 5px;
     margin-top: 5px;
+}
+
+/* Sound Selection Styles */
+#uploadSound, #soundUrl, #existingSound {
+    display: none;
 }

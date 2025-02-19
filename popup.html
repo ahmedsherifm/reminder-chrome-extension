@@ -15,8 +15,11 @@
     <div id="messageContainer"></div>
 
     <div class="toggle-container">
-        <label for="multipleMessages">Use Multiple Messages?</label>
-        <input type="checkbox" id="multipleMessages">
+        <label class="toggle-label">Use Multiple Messages?</label>
+        <label class="toggle-switch">
+            <input type="checkbox" id="multipleMessages">
+            <span class="slider"></span>
+        </label>
     </div>
 
     <button id="addMessage" class="full-width-btn">+ Add Another Message</button>
@@ -25,8 +28,11 @@
     <input type="number" id="reminderTime" min="1" placeholder="Minutes">
 
     <div class="toggle-container">
-        <label for="periodicReminder">Make this a periodic reminder</label>
-        <input type="checkbox" id="periodicReminder">
+        <label class="toggle-label">Make this a periodic reminder</label>
+        <label class="toggle-switch">
+            <input type="checkbox" id="periodicReminder">
+            <span class="slider"></span>
+        </label>
     </div>
 
     <label>Reminder Sound:</label>
@@ -34,9 +40,11 @@
         <option value="">Select an option</option>
         <option value="upload">Upload File</option>
         <option value="url">Enter URL</option>
+        <option value="existing">Re-use Existing File</option>
     </select>
     <input type="file" id="uploadSound" accept="audio/mp3" style="display: none;">
     <input type="text" id="soundUrl" placeholder="Enter MP3 URL" style="display: none;">
+    <select id="existingSound" style="display: none;"></select>
 
     <button id="setReminder" class="full-width-btn">Set Reminder</button>
 

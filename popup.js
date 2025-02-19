@@ -5,6 +5,8 @@ document.getElementById("periodicReminder").addEventListener("change", () => {
     console.log("Periodic reminder toggled", document.getElementById("periodicReminder").checked);
 });
 
+document.getElementById("soundSelect").addEventListener("change", handleSoundSelection);
+
 function updateMessageUI() {
     const multiple = document.getElementById("multipleMessages").checked;
     const messageContainer = document.getElementById("messageContainer");
@@ -12,11 +14,7 @@ function updateMessageUI() {
 
     addMessageField(multiple);
 
-    if (multiple) {
-        document.getElementById("addMessage").style.display = "block";
-    } else {
-        document.getElementById("addMessage").style.display = "none";
-    }
+    document.getElementById("addMessage").style.display = multiple ? "block" : "none";
 }
 
 function addMessageField(canDelete) {
@@ -29,6 +27,8 @@ function addMessageField(canDelete) {
     input.className = "messageInput";
     input.placeholder = "Enter message";
 
+    wrapper.appendChild(input);
+
     if (canDelete) {
         const deleteBtn = document.createElement("button");
         deleteBtn.innerHTML = "❌";
@@ -37,8 +37,14 @@ function addMessageField(canDelete) {
         wrapper.appendChild(deleteBtn);
     }
 
-    wrapper.appendChild(input);
     container.appendChild(wrapper);
+}
+
+function handleSoundSelection() {
+    const selectValue = document.getElementById("soundSelect").value;
+    document.getElementById("uploadSound").style.display = selectValue === "upload" ? "block" : "none";
+    document.getElementById("soundUrl").style.display = selectValue === "url" ? "block" : "none";
+    document.getElementById("existingSound").style.display = selectValue === "existing" ? "block" : "none";
 }
 
 document.getElementById("setReminder").addEventListener("click", () => {
@@ -56,6 +62,8 @@ document.getElementById("setReminder").addEventListener("click", () => {
         if (fileInput.files.length > 0) {
             soundFile = URL.createObjectURL(fileInput.files[0]);
         }
+    } else if (soundSelect === "existing") {
+        soundFile = document.getElementById("existingSound").value;
     }
 
     if (!title || messages.length === 0 || isNaN(time) || time <= 0) {
