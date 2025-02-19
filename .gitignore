@@ -1,0 +1,37 @@
+# Ignore node_modules (if using any npm packages)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore OS-specific files
+.DS_Store  # macOS
+Thumbs.db  # Windows
+
+# Ignore build artifacts (if using a build process)
+dist/
+build/
+
+# Ignore Chrome extension-related local storage
+chrome-profile/
+chrome-extension/
+*.crx
+*.pem  # If you have a private key for signing the extension
+
+# Ignore logs and temp files
+*.log
+npm-debug.log*
+*.tmp
+*.cache
+
+# Ignore user-specific settings
+.vscode/
+.idea/
+*.swp
+
+# Ignore compiled files (if applicable)
+*.map
+*.min.*
+
+# Ignore sound and image backups (if you keep original assets)
+backup/
+*.bak
