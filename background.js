@@ -50,7 +50,10 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
 chrome.notifications.onButtonClicked.addListener((notificationId, buttonIndex) => {
     if (buttonIndex === 0) {
-        chrome.alarms.create(`reminder_${notificationId}`, { delayInMinutes: 5 });
-        chrome.notifications.clear(notificationId);
+        const snoozeMinutes = prompt("Snooze for how many minutes?", "5");
+        if (!isNaN(snoozeMinutes) && snoozeMinutes > 0) {
+            chrome.alarms.create(`reminder_${notificationId}`, { delayInMinutes: parseInt(snoozeMinutes, 10) });
+            chrome.notifications.clear(notificationId);
+        }
     }
 });

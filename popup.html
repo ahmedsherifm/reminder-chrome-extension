@@ -12,38 +12,28 @@
     <input type="text" id="reminderTitle" placeholder="Enter title">
 
     <label>Reminder Message(s):</label>
-    <div id="messageContainer" class="input-group">
-        <div class="message-wrapper">
-            <input type="text" class="messageInput" placeholder="Enter message">
-            <button class="delete-btn">🗑</button>
-        </div>
-    </div>
+    <div id="messageContainer"></div>
 
     <div class="toggle-container">
-        <label class="toggle-label" for="multipleMessages">Use Multiple Messages?</label>
-        <label class="toggle-switch">
-            <input type="checkbox" id="multipleMessages">
-            <span class="slider"></span>
-        </label>
+        <label for="multipleMessages">Use Multiple Messages?</label>
+        <input type="checkbox" id="multipleMessages">
     </div>
-    
-    <button id="addMessage" style="display: none;">+ Add Another Message</button>
+
+    <button id="addMessage" class="full-width-btn">+ Add Another Message</button>
 
     <label>Reminder Time (minutes):</label>
     <input type="number" id="reminderTime" min="1" placeholder="Minutes">
 
-    <label>Reminder Sound (MP3 URL):</label>
-    <input type="text" id="reminderSound" placeholder="Enter MP3 URL">
+    <label>Reminder Sound:</label>
+    <select id="soundSelect">
+        <option value="">Select an option</option>
+        <option value="upload">Upload File</option>
+        <option value="url">Enter URL</option>
+    </select>
+    <input type="file" id="uploadSound" accept="audio/mp3" style="display: none;">
+    <input type="text" id="soundUrl" placeholder="Enter MP3 URL" style="display: none;">
 
-    <div class="toggle-container">
-        <label class="toggle-label" for="periodicReminder">Make this a periodic reminder</label>
-        <label class="toggle-switch">
-            <input type="checkbox" id="periodicReminder">
-            <span class="slider"></span>
-        </label>
-    </div>
-
-    <button id="setReminder">Set Reminder</button>
+    <button id="setReminder" class="full-width-btn">Set Reminder</button>
 
     <h3>Active Reminders</h3>
     <ul id="reminderList"></ul>

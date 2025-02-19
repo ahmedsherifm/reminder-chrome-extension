@@ -1,51 +1,60 @@
-document.getElementById("multipleMessages").addEventListener("change", (event) => {
-    const addButton = document.getElementById("addMessage");
+document.getElementById("multipleMessages").addEventListener("change", updateMessageUI);
+
+function updateMessageUI() {
+    const multiple = document.getElementById("multipleMessages").checked;
     const messageContainer = document.getElementById("messageContainer");
-    
-    if (event.target.checked) {
-        messageContainer.innerHTML = ""; // Clear existing messages
-        addMessageField();
-        addMessageField();
-        addButton.style.display = "block";
+    messageContainer.innerHTML = "";
+
+    addMessageField(multiple);
+
+    if (multiple) {
+        document.getElementById("addMessage").style.display = "block";
     } else {
-        messageContainer.innerHTML = "";
-        addMessageField();
-        addButton.style.display = "none";
+        document.getElementById("addMessage").style.display = "none";
     }
-    console.log("Multiple messages toggled", event.target.checked);
-});
+}
 
 document.getElementById("addMessage").addEventListener("click", () => {
-    addMessageField();
+    addMessageField(true);
 });
 
-function addMessageField() {
-    const messageContainer = document.getElementById("messageContainer");
-    const inputWrapper = document.createElement("div");
-    inputWrapper.className = "message-wrapper";
-    
+function addMessageField(canDelete) {
+    const container = document.getElementById("messageContainer");
+    const wrapper = document.createElement("div");
+    wrapper.className = "message-wrapper";
+
     const input = document.createElement("input");
     input.type = "text";
     input.className = "messageInput";
     input.placeholder = "Enter message";
-    
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "✖";
-    deleteBtn.className = "delete-btn";
-    deleteBtn.onclick = () => inputWrapper.remove();
-    
-    inputWrapper.appendChild(input);
-    inputWrapper.appendChild(deleteBtn);
-    messageContainer.appendChild(inputWrapper);
-    console.log("Added new message field");
+
+    if (canDelete) {
+        const deleteBtn = document.createElement("button");
+        deleteBtn.innerHTML = "❌";
+        deleteBtn.className = "delete-btn";
+        deleteBtn.onclick = () => wrapper.remove();
+        wrapper.appendChild(deleteBtn);
+    }
+
+    wrapper.appendChild(input);
+    container.appendChild(wrapper);
 }
 
 document.getElementById("setReminder").addEventListener("click", () => {
     const title = document.getElementById("reminderTitle").value.trim();
     const messages = [...document.querySelectorAll(".messageInput")].map(input => input.value.trim()).filter(m => m.length > 0);
     const time = parseInt(document.getElementById("reminderTime").value, 10) || 1;
-    const soundFile = document.getElementById("reminderSound").value.trim();
-    const periodic = document.getElementById("periodicReminder").checked;
+
+    let soundFile = "";
+    const soundSelect = document.getElementById("soundSelect").value;
+    if (soundSelect === "url") {
+        soundFile = document.getElementById("soundUrl").value.trim();
+    } else if (soundSelect === "upload") {
+        const fileInput = document.getElementById("uploadSound");
+        if (fileInput.files.length > 0) {
+            soundFile = URL.createObjectURL(fileInput.files[0]);
+        }
+    }
 
     if (!title || messages.length === 0 || isNaN(time) || time <= 0) {
         alert("Enter valid title, messages, and time!");
@@ -53,17 +62,12 @@ document.getElementById("setReminder").addEventListener("click", () => {
     }
 
     const reminderId = Date.now().toString();
-
     chrome.storage.sync.get(["reminders"], (data) => {
         const reminders = data.reminders || [];
-        reminders.push({ id: reminderId, title, messages, time, soundFile, periodic });
+        reminders.push({ id: reminderId, title, messages, time, soundFile });
 
         chrome.storage.sync.set({ reminders }, () => {
-            chrome.alarms.create(`reminder_${reminderId}`, {
-                delayInMinutes: time,
-                periodInMinutes: periodic ? time : undefined
-            });
-            console.log("Reminder set", { id: reminderId, title, messages, time, soundFile, periodic });
+            chrome.alarms.create(`reminder_${reminderId}`, { delayInMinutes: time });
             displayReminders();
         });
     });
@@ -73,16 +77,16 @@ function displayReminders() {
     chrome.storage.sync.get(["reminders"], (data) => {
         const reminderList = document.getElementById("reminderList");
         reminderList.innerHTML = "";
-        
+
         (data.reminders || []).forEach(reminder => {
             const li = document.createElement("li");
             li.textContent = `${reminder.title} - Every ${reminder.time} min`;
-            
+
             const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "🗑";
+            deleteBtn.innerHTML = "❌";
             deleteBtn.className = "delete-reminder-btn";
             deleteBtn.onclick = () => deleteReminder(reminder.id);
-            
+
             li.appendChild(deleteBtn);
             reminderList.appendChild(li);
         });
@@ -91,13 +95,26 @@ function displayReminders() {
 
 function deleteReminder(reminderId) {
     chrome.storage.sync.get(["reminders"], (data) => {
-        const reminders = data.reminders.filter(r => r.id !== reminderId);
+        let reminders = data.reminders || [];
+        const deletedReminder = reminders.find(r => r.id === reminderId);
+
+        // Remove the reminder
+        reminders = reminders.filter(r => r.id !== reminderId);
+
+        // Check if any other reminders are using the same sound file
+        const soundFile = deletedReminder.soundFile;
+        if (soundFile && !reminders.some(r => r.soundFile === soundFile)) {
+            URL.revokeObjectURL(soundFile); // Remove from memory if not used elsewhere
+        }
+
         chrome.storage.sync.set({ reminders }, () => {
             chrome.alarms.clear(`reminder_${reminderId}`);
             displayReminders();
-            console.log("Deleted reminder", reminderId);
         });
     });
 }
 
-document.addEventListener("DOMContentLoaded", displayReminders);
+document.addEventListener("DOMContentLoaded", () => {
+    updateMessageUI();
+    displayReminders();
+});

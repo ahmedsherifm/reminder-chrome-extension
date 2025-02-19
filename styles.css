@@ -160,3 +160,9 @@ button:hover {
 button:active {
     transform: scale(0.98);
 }
+
+.full-width-btn {
+    width: 100%;
+    display: block;
+    margin-top: 10px;
+}
