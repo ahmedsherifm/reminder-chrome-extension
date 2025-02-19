@@ -15,7 +15,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
             const notificationOptions = {
                 type: "basic",
-                iconUrl: "icon-128.png",
+                iconUrl: "icons/icon128.png",
                 title: reminder.title || "Reminder",
                 message: message,
                 requireInteraction: false
