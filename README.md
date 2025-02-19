@@ -32,7 +32,7 @@ reminder-extension/
 
 1. **Download or Clone** the repository:
    ```sh
-   git clone https://github.com/ahmedsherifm/chrome-reminder-extension.git
+   git clone https://github.com/ahmedsherifm/reminder-chrome-extension.git
    ```
 2. Open **Google Chrome** and go to:
    ```
