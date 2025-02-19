@@ -16,9 +16,12 @@
         <input type="text" class="messageInput" placeholder="Enter message">
     </div>
 
-    <div class="checkbox-container">
-        <input type="checkbox" id="multipleMessages">
-        <label for="multipleMessages">Use Multiple Messages?</label>
+    <div class="toggle-container">
+        <label class="toggle-label" for="multipleMessages">Use Multiple Messages?</label>
+        <label class="toggle-switch">
+            <input type="checkbox" id="multipleMessages">
+            <span class="slider"></span>
+        </label>
     </div>
     
     <button id="addMessage" style="display: none;">+ Add Another Message</button>
@@ -29,9 +32,12 @@
     <label>Reminder Sound (MP3 URL):</label>
     <input type="text" id="reminderSound" placeholder="Enter MP3 URL">
 
-    <div class="checkbox-container">
-        <input type="checkbox" id="periodicReminder">
-        <label for="periodicReminder">Make this a periodic reminder</label>
+    <div class="toggle-container">
+        <label class="toggle-label" for="periodicReminder">Make this a periodic reminder</label>
+        <label class="toggle-switch">
+            <input type="checkbox" id="periodicReminder">
+            <span class="slider"></span>
+        </label>
     </div>
 
     <button id="setReminder">Set Reminder</button>

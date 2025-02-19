@@ -30,7 +30,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             const audio = new Audio(chrome.runtime.getURL(soundFile));
             audio.play();
 
-            // ✅ Restore History Logging
+            // ✅ Ensure reminder history is recorded
             chrome.storage.local.get(["history"], (historyData) => {
                 const history = historyData.history || [];
                 history.push({ 
